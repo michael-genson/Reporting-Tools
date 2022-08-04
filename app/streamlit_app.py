@@ -25,7 +25,9 @@ with st.form("fcr_calculator"):
     report_date = st.date_input(
         "Report Date", value=datetime.today() - timedelta(days=15)
     )
-    child_case_threshold = st.number_input("Child Case Threshold", value=4, min_value=0)
+    child_case_threshold = int(
+        st.number_input("Child Case Threshold", value=4, min_value=0)
+    )
     fcr_submitted = st.form_submit_button("Calculate First Call Resolution")
 
     if fcr_submitted:

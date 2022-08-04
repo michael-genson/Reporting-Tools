@@ -1,4 +1,4 @@
-from typing import Any, List, Tuple
+from typing import Any, List, Optional, Tuple
 
 import openpyxl
 
@@ -99,8 +99,8 @@ def main(
     fcr_reopened_file,
     fcr_closed_file,
     fcr_parent_file,
-    child_case_threshold,
-    child_case_count_override=None,
+    child_case_threshold: int,
+    child_case_count_override: Optional[int] = None,
 ) -> dict[str, float | int]:
 
     cases = get_cases(
