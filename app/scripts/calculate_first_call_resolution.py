@@ -1,6 +1,9 @@
 from typing import Any, List, Optional, Tuple
 
-import openpyxl
+from dateutil.parser import parse as parse_date
+from streamlit.uploaded_file_manager import UploadedFile
+
+from scripts.utils import open_workbook
 
 
 def format_row(headers, row, report_date_column, is_reopened) -> dict[str, Any]:
@@ -19,7 +22,8 @@ def format_row(headers, row, report_date_column, is_reopened) -> dict[str, Any]:
 def get_cases(
     report_date, report_file, report_date_column, is_reopened, file_display_name
 ) -> List[dict[str, Any]]:
-    wb = openpyxl.load_workbook(report_file)
+
+    wb = open_workbook(report_file, file_display_name)
     ws = wb.active
 
     try:
@@ -30,7 +34,11 @@ def get_cases(
                 report_date_index = headers.index(report_date_column)
                 continue
 
-            if row[report_date_index].value.date() != report_date:
+            timestamp_cell = row[report_date_index]
+            if isinstance(timestamp_cell.value, str):
+                timestamp_cell.value = parse_date(timestamp_cell.value)
+
+            if timestamp_cell.value.date() != report_date:
                 continue
 
             cases.append(format_row(headers, row, report_date_column, is_reopened))
@@ -64,7 +72,7 @@ def keep_unique_case_by_newest_datetime(
 def get_child_case_count(
     report_file, case_numbers, child_case_threshold, whitespace_offset=1
 ) -> int:
-    wb = openpyxl.load_workbook(report_file)
+    wb = open_workbook(report_file, file_display_name="Parent Cases Report")
     ws = wb.active
     child_case_count: int = 0
 
