@@ -9,11 +9,16 @@ license = "GNU"
 python = "^3.10"
 streamlit = "^1.11.1"
 openpyxl = "^3.0.10"
+xlrd = "^2.0.1"
+lxml = "^4.9.1"
+python-dateutil = "^2.8.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
 mypy = "^0.971"
 openpyxl-stubs = "^0.1.21"
+pandas-stubs = "<1.4"
+types-python-dateutil = "^2.8.19"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
