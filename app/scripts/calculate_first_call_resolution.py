@@ -76,15 +76,9 @@ def get_child_case_count(
     ws = wb.active
     child_case_count: int = 0
 
-    # only look at cases we're interested in
-    case_number = None
-
     # find the "Subtotal" rows and sum them if they exceed the threshold
     for row in ws.rows:
-        if str(row[whitespace_offset].value).isnumeric():
-            case_number = row[whitespace_offset].value
-
-        if case_number in case_numbers and row[whitespace_offset].value == "Subtotal":
+        if row[whitespace_offset].value == "Subtotal":
             case_count = row[whitespace_offset + 2].value
             if case_count >= child_case_threshold:
                 child_case_count += case_count
@@ -94,12 +88,10 @@ def get_child_case_count(
 
 def get_closed_and_escalated_case_counts(cases) -> Tuple[int, int]:
     # filter to only cases that are not re-opened
-    cases = [case for case in cases if not case["is_reopened"]]
+    closed_cases = [case for case in cases if not case["is_reopened"]]
+    escalated_cases = [case for case in closed_cases if case["was_escalated"]]
 
-    escalated_case_count = len([case for case in cases if case["was_escalated"]])
-    closed_case_count = len(cases) - escalated_case_count
-
-    return closed_case_count, escalated_case_count
+    return len(closed_cases), len(escalated_cases)
 
 
 def main(
@@ -148,9 +140,7 @@ def main(
         cases
     )
 
-    fcr = (closed_case_count - escalated_case_count - child_case_count) / sum(
-        [closed_case_count, escalated_case_count, child_case_count]
-    )
+    fcr = (closed_case_count - escalated_case_count - child_case_count) / len(cases)
 
     return {
         "fcr": fcr,
