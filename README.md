@@ -1,2 +1,2 @@
 # Reporting-Tools
-Specialized (custom) reporting tools
+Specialized (custom) reporting tools applet built in Streamlit.

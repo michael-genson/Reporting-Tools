@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "reporting-tools"
+version = "0.1.0"
+description = "specialized custom reporting tools built in streamlit"
+authors = ["Michael Genson <71845777+michael-genson@users.noreply.github.com>"]
+license = "GNU"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.11.1"
+openpyxl = "^3.0.10"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+mypy = "^0.971"
+openpyxl-stubs = "^0.1.21"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
