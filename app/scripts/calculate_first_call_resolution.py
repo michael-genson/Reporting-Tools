@@ -1,7 +1,6 @@
 from typing import Any, List, Optional, Tuple
 
 from dateutil.parser import parse as parse_date
-from streamlit.uploaded_file_manager import UploadedFile
 
 from scripts.utils import open_workbook
 
