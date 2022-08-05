@@ -69,9 +69,7 @@ def keep_unique_case_by_newest_datetime(
     return unique_cases
 
 
-def get_child_case_count(
-    report_file, case_numbers, child_case_threshold, whitespace_offset=1
-) -> int:
+def get_child_case_count(report_file, child_case_threshold, whitespace_offset=1) -> int:
     wb = open_workbook(report_file, file_display_name="Parent Cases Report")
     ws = wb.active
     child_case_count: int = 0
@@ -131,7 +129,6 @@ def main(
         if child_case_count_override is not None
         else get_child_case_count(
             fcr_parent_file,
-            [case["case_number"] for case in cases],
             child_case_threshold,
         )
     )
