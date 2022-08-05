@@ -84,12 +84,14 @@ def get_child_case_count(report_file, child_case_threshold, whitespace_offset=1)
     return child_case_count
 
 
-def get_closed_and_escalated_case_counts(cases) -> Tuple[int, int]:
+def get_closed_and_escalated_cases(
+    cases: List[dict[str, Any]]
+) -> Tuple[List[dict[str, Any]], List[dict[str, Any]]]:
     # filter to only cases that are not re-opened
     closed_cases = [case for case in cases if not case["is_reopened"]]
     escalated_cases = [case for case in closed_cases if case["was_escalated"]]
 
-    return len(closed_cases), len(escalated_cases)
+    return closed_cases, escalated_cases
 
 
 def main(
@@ -133,15 +135,13 @@ def main(
         )
     )
 
-    closed_case_count, escalated_case_count = get_closed_and_escalated_case_counts(
-        cases
-    )
+    closed_cases, escalated_cases = get_closed_and_escalated_cases(cases)
 
-    fcr = (closed_case_count - escalated_case_count - child_case_count) / len(cases)
+    fcr = (len(closed_cases) - len(escalated_cases) - child_case_count) / len(cases)
 
     return {
         "fcr": fcr,
-        "closed_case_count": closed_case_count,
-        "escalated_case_count": escalated_case_count,
+        "closed_case_count": len(closed_cases),
+        "escalated_case_count": len(escalated_cases),
         "child_case_count": child_case_count,
     }
