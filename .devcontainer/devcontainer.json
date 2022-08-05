@@ -59,8 +59,7 @@
         }
     },
     "forwardPorts": [
-        3000,
-        9000
+        8501
     ],
     // Use 'otherPortsAttributes' to configure any ports that aren't configured using 'portsAttributes'.
     // "otherPortsAttributes": {
