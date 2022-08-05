@@ -100,7 +100,7 @@ def main(
     fcr_parent_file,
     child_case_threshold: int,
     child_case_count_override: Optional[int] = None,
-) -> dict[str, float | int]:
+) -> dict[str, int]:
 
     cases = get_cases(
         report_date,
@@ -136,11 +136,9 @@ def main(
 
     closed_cases, escalated_cases = get_closed_and_escalated_cases(cases)
 
-    fcr = (len(closed_cases) - len(escalated_cases) - child_case_count) / len(cases)
-
     return {
-        "fcr": fcr,
         "closed_case_count": len(closed_cases),
         "escalated_case_count": len(escalated_cases),
         "child_case_count": child_case_count,
+        "total_cases": len(cases),
     }

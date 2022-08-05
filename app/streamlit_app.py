@@ -16,7 +16,7 @@ fcr_tab, case_report_tab = st.tabs(
 
 with fcr_tab:
     st.header("First Call Resolution Calculator")
-    calculations: dict[str, float | int] = {}
+    calculations: dict[str, int] = {}
 
     with st.form("fcr_calculator"):
         fcr_reopened_file = st.file_uploader(
@@ -61,14 +61,28 @@ with fcr_tab:
                     )
 
     if calculations:
-        col1, col2, col3 = st.columns(3)
-        col2.metric("First Call Resolution", format_percent(calculations["fcr"]))
+        fcr = (
+            calculations["closed_case_count"]
+            - calculations["escalated_case_count"]
+            - calculations["child_case_count"]
+        ) / calculations["total_cases"]
+
+        _, fcr_column, _ = st.columns(3)
+        fcr_column.metric("First Call Resolution", format_percent(fcr))
 
         with st.expander("See calculated data"):
-            subcol1, subcol2, subcol3 = st.columns(3)
-            subcol1.metric("Closed Case Count", calculations["closed_case_count"])
-            subcol2.metric("Escalated Case Count", calculations["escalated_case_count"])
-            subcol3.metric("Child Case Count", calculations["child_case_count"])
+            st.latex(
+                r"""\frac{closed\ cases - escalated\ cases - child\ cases}{total\ cases}"""
+            )
+
+            # we tell streamlit that these values are ints to avoid decimal points, despite their types always being ints
+            subcol1, subcol2, subcol3, subcol4 = st.columns(4)
+            subcol1.metric("Closed Case Count", int(calculations["closed_case_count"]))
+            subcol2.metric(
+                "Escalated Case Count", int(calculations["escalated_case_count"])
+            )
+            subcol3.metric("Child Case Count", int(calculations["child_case_count"]))
+            subcol4.metric("Total Cases", int(calculations["total_cases"]))
 
 with case_report_tab:
     st.header("Case Report Formatter")
