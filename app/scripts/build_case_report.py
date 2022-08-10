@@ -18,11 +18,10 @@ def load_follow_up_and_weight_map() -> dict[str, int | float]:
     return d
 
 
-def write_workbook_runtime(ws: Worksheet) -> None:
+def write_workbook_runtime(ws: Worksheet, report_datetime: datetime) -> None:
     """Appends the runtime to the workbook"""
 
-    worksheet_datetime = datetime.now()
-    datetime_string = worksheet_datetime.strftime("%#m/%#d/%Y at %#I:%M%p").lower()
+    datetime_string = report_datetime.strftime("%-m/%-d/%Y at %-I:%M%p").lower()
 
     for i, row in enumerate(ws.rows):
         if row[0].value and "workload management report" in row[0].value.lower():
@@ -190,6 +189,7 @@ def write_average_cycle_formulas(
 
 def main(
     report_file,
+    report_datetime: datetime,
     outstanding_val: float,
     outstanding_color: str,
     exceeds_val: float,
@@ -210,7 +210,7 @@ def main(
 
     wb = open_workbook(report_file, "Case Report")
     ws = wb.active
-    write_workbook_runtime(ws)
+    write_workbook_runtime(ws, report_datetime)
 
     try:
         agent_data_map = parse_pivot_table_for_cycles_and_weights(

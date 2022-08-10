@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, time, timedelta
+from typing import cast
 
 import streamlit as st
 
@@ -91,6 +92,8 @@ with case_report_tab:
     with st.form("case_report"):
         case_report_file = st.file_uploader("Case Report File", type="xlsx")
         report_date = st.date_input("Report Date")
+        report_time = st.time_input("Report Run Time", time(hour=13))
+        report_datetime = datetime.combine(cast(date, report_date), report_time)
 
         with st.expander("Cycle Performance Thresholds"):
             st.markdown(
@@ -137,6 +140,7 @@ with case_report_tab:
                 try:
                     new_report_filepath = build_case_report(
                         case_report_file,
+                        report_datetime,
                         outstanding_val,
                         outstanding_color,
                         exceeds_val,
@@ -158,6 +162,6 @@ with case_report_tab:
             col2.download_button(
                 "Download your formatted Case Report",
                 f,
-                file_name=f"Workload Management Report {report_date.strftime('%#m-%#d-%Y')}.xlsx",  # type: ignore
+                file_name=f"Workload Management Report {report_datetime.strftime('%-m-%-d-%Y')}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
