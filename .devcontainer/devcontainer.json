@@ -14,7 +14,9 @@
             "NODE_VERSION": "lts/*"
         }
     },
-    "runArgs": ["--network=host"],
+    "runArgs": [
+        "--network=host"
+    ],
     // Configure tool-specific properties.
     "customizations": {
         // Configure properties specific to VS Code.
@@ -42,11 +44,11 @@
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
-				"ms-python.python",
-				"ms-python.vscode-pylance",
-				"matangover.mypy",
-				"ms-python.black-formatter"
-			]
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "matangover.mypy",
+                "ms-python.black-formatter"
+            ]
         }
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -71,5 +73,5 @@
         "install"
     ],
     // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "vscode"
+    "remoteUser": "root"
 }
