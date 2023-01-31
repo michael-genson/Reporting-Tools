@@ -8,6 +8,7 @@ def get_map():
         "new email received": {"follow-up": 1, "weight": 2},
         "open": {"follow-up": 1, "weight": 2},
         "re-opened": {"follow-up": 1, "weight": 2},
+        "rma in progress": {"follow-up": 14, "weight": 1},
         "waiting on customer": {"follow-up": 2, "weight": 1.75},
         "waiting on development": {"follow-up": 14, "weight": 1},
         "waiting on ols": {"follow-up": 2, "weight": 1.75},
