@@ -2,7 +2,6 @@ from datetime import date, datetime, time, timedelta
 from typing import cast
 
 import streamlit as st
-
 from scripts.build_case_report import main as build_case_report
 from scripts.calculate_first_call_resolution import (
     main as calculate_first_call_resolution,
@@ -104,25 +103,25 @@ with case_report_tab:
             )
 
             col1, col2 = st.columns(2)
-            outstanding_color = col2.color_picker("", value="#92D050")
+            outstanding_color = col2.color_picker("Outstanding Color", value="#92D050", label_visibility="hidden")
             outstanding_val = col1.slider(
                 "Outstanding", value=1.0, min_value=0.0, max_value=5.0, step=0.01
             )
 
             col1, col2 = st.columns(2)
-            exceeds_color = col2.color_picker("", value="#FFFF00")
+            exceeds_color = col2.color_picker("Exeeds Color", value="#FFFF00", label_visibility="hidden")
             exceeds_val = col1.slider(
                 "Exceeds", value=1.2, min_value=0.0, max_value=5.0, step=0.01
             )
 
             col1, col2 = st.columns(2)
-            competent_color = col2.color_picker("", value="#FFC000")
+            competent_color = col2.color_picker("Competent Color", value="#FFC000", label_visibility="hidden")
             competent_val = col1.slider(
                 "Competent", value=2.0, min_value=0.0, max_value=5.0, step=0.01
             )
 
             col1, col2 = st.columns(2)
-            needs_improvement_color = col2.color_picker("", value="#FF0000")
+            needs_improvement_color = col2.color_picker("Needs Improvement Color", value="#FF0000", label_visibility="hidden")
 
             # this isn't actually used since it's the final threshold, it's just here for display purposes
             col1.slider("Needs Improvement (default)", value=5.0, disabled=True)
