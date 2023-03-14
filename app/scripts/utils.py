@@ -1,16 +1,16 @@
 from tempfile import NamedTemporaryFile
+from typing import Any
 
 import openpyxl
 import pandas as pd
 from openpyxl import Workbook
-from streamlit.uploaded_file_manager import UploadedFile
 
 
 def format_percent(val: float | int) -> str:
     return f"{round(val * 100, 2)}%"
 
 
-def open_workbook(report_file: UploadedFile, file_display_name: str) -> Workbook:
+def open_workbook(report_file: Any, file_display_name: str) -> Workbook:
     # XLSX
     try:
         report_file.seek(0)
