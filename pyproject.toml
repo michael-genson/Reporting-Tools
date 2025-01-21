@@ -7,19 +7,12 @@ license = "GNU"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.10"
-openpyxl = "^3.0.10"
+python = "^3.12"
+openpyxl = "^3.1.5"
 xlrd = "^2.0.1"
-lxml = "^4.9.1"
-python-dateutil = "^2.8.2"
-streamlit = "^1.20.0"
-
-[tool.poetry.dev-dependencies]
-black = "^22.6.0"
-mypy = "^0.971"
-openpyxl-stubs = "^0.1.21"
-pandas-stubs = "<1.4"
-types-python-dateutil = "^2.8.19"
+lxml = "^5.3.0"
+python-dateutil = "^2.9.0.post0"
+streamlit = "^1.41.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
