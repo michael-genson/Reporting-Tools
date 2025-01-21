@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "specialized custom reporting tools built in streamlit"
 authors = ["Michael Genson <71845777+michael-genson@users.noreply.github.com>"]
 license = "GNU"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
